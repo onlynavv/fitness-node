@@ -5,6 +5,8 @@ import {MongoClient} from "mongodb"
 import { workoutRouter } from "./workouts.js"
 import { userAuthRouter } from "./userauth.js"
 import { measurementsTypeRouter } from "./measurements.js"
+import nodemailer from "nodemailer"
+import sendgridTransport from "nodemailer-sendgrid-transport"
 
 dotenv.config()
 
@@ -26,6 +28,12 @@ async function createConnection(){
 }
 
 export const client = await createConnection()
+
+export const transporter = nodemailer.createTransport(sendgridTransport({
+    auth:{
+        api_key:process.env.TRANSPORT_KEY
+    }
+}))
 
 app.get("/", (request, response)=>{
     response.send("hai from fitness logger")

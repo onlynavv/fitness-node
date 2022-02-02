@@ -34,6 +34,10 @@ async function getActivity(id){
     return await client.db("fitness").collection("activities").findOne({"_id":ObjectId(id)})
 }
 
+async function getUserSingleActivity(id){
+    return await client.db("fitness").collection("userActivities").findOne({_id:ObjectId(id)})
+}
+
 // measurements
 
 async function addMeasurementsType(data){
@@ -58,6 +62,11 @@ function calcCalorie (t,met, weight){
 // save user workout
 async function saveUserWorkout(data){
     return await client.db("fitness").collection("userActivities").insertOne(data)
+}
+
+// edit & save user workout
+async function editAndSaveUserWorkout(data, workoutId){
+    return await client.db("fitness").collection("userActivities").updateOne({"workoutId":workoutId},{$set:{"workoutSummary":data.workoutSummary, "totalCalories":data.totalCalories}})
 }
 
 // get user by id
@@ -117,6 +126,10 @@ async function getUserActivityByDate(data){
     ]).toArray()
 }
 
+async function deleteUsersSingleActivity(id){
+    return await client.db("fitness").collection("userActivities").deleteOne({_id:ObjectId(id)})
+}
+
 async function getCaloriesArr(userId){
     return await client.db("fitness").collection("userActivities").find({userId:userId},{projection: {totalCalories:1, workoutDate:1}}).toArray()
 }
@@ -125,6 +138,14 @@ async function getCaloriesArr(userId){
 
 async function getByUserName(username){
     return await client.db("fitness").collection("users").findOne({username:username})
+}
+
+async function getByUserId(id){
+    return await client.db("fitness").collection("users").findOne({_id:ObjectId(id)})
+}
+
+async function updatePassword(id,password) {
+    return await client.db("fitness").collection("users").updateOne({_id:ObjectId(id)},{$set:{password:password}});
 }
 
 async function genPassword(password){
@@ -140,4 +161,4 @@ async function createUser(data) {
     return await client.db("fitness").collection("users").insertOne(data);
 }
 
-export {addCategories, addActivityType, addActivity, getAllActivities, getAllCategories, getActivityTypeForCat, getActivitiesForType, getActivity, getByUserName, genPassword, createUser, addMeasurementsType, addUsersWeight, getUserByIdFromMeasurements, updateUsersWeight, getLatestWeight, getMetsValue, calcCalorie, saveUserWorkout, getUserActivity, getUserActivityByDate, getCaloriesArr, getUserLatestActivity}
+export {addCategories, addActivityType, addActivity, getAllActivities, getAllCategories, getActivityTypeForCat, getActivitiesForType, getActivity, getByUserName, genPassword, createUser, addMeasurementsType, addUsersWeight, getUserByIdFromMeasurements, updateUsersWeight, getLatestWeight, getMetsValue, calcCalorie, saveUserWorkout, getUserActivity, getUserActivityByDate, getCaloriesArr, getUserLatestActivity ,getUserSingleActivity, deleteUsersSingleActivity, editAndSaveUserWorkout, getByUserId, updatePassword}
