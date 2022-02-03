@@ -4,6 +4,9 @@ const router = express.Router()
 import { ObjectId } from "mongodb";
 import { auth } from "./customauth.js"
 
+const app = express()
+app.use(cors())
+
 router
 .route("/addCategories")
 .post(async(request, response)=>{
