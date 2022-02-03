@@ -3,6 +3,7 @@ import { addCategories,addActivityType,addActivity,getAllActivities,getAllCatego
 const router = express.Router()
 import { ObjectId } from "mongodb";
 import { auth } from "./customauth.js"
+import cors from "cors"
 
 const app = express()
 app.use(cors())
