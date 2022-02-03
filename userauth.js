@@ -2,13 +2,8 @@ import express from "express"
 const router = express.Router()
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-import cors from "cors"
 import { getByUserName, genPassword, createUser, getByUserId, updatePassword } from "./helper.js"
 import { transporter } from "./index.js"
-import cors from "cors"
-
-const app = express()
-app.use(cors())
 
 router.route("/signup")
 .post(async(request, response)=>{
