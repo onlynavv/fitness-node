@@ -55,7 +55,7 @@ async function updateUsersWeight(userId, weightInfoData){
 
 // calculate calories burned function
 
-function calcCalorie (t,met, weight){
+function calcCalorie (t,met, weight=62){
     return (t*met*3.5*weight) / 200
 }
 
