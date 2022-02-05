@@ -9,7 +9,6 @@ router.route("/signup")
 .post(async(request, response)=>{
     const {username, password,email,firstname,lastname, plan} = request.body
     const userFromDB = await getByUserName(username)
-    console.log(userFromDB)
 
     if(userFromDB){
         response.status(400).send({msg:"username already exists"})

@@ -49,7 +49,7 @@ async function addUsersWeight(userMeasureInfo){
 }
 
 async function updateUsersWeight(userId, weightInfoData){
-    console.log(userId, weightInfoData)
+    
     return await client.db("fitness").collection("userMeasurementsInfo").updateOne({userId:userId},{$push:{"weightData":weightInfoData}})
 }
 
@@ -151,9 +151,9 @@ async function updatePassword(id,password) {
 async function genPassword(password){
     const NO_OF_ROUNDS = 10
     const salt = await bcrypt.genSalt(NO_OF_ROUNDS)
-    console.log(salt)
+    
     const hashedPassword = await bcrypt.hash(password, salt)
-    console.log(hashedPassword)
+    
     return hashedPassword
 }
 

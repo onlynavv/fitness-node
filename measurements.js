@@ -6,7 +6,7 @@ import { ObjectId } from "mongodb";
 
 router.route("/addMeasurementsType")
 .post(async(request, response)=>{
-    console.log(request.body)
+    
     const result = await addMeasurementsType(request.body)
     response.send({msg:"measurements type added", result})
 })
@@ -15,7 +15,7 @@ router.route("/addUserWeights")
 .put(auth,async(request, response)=>{
     const userId = request.user.id
     const userFromMeasureInfo = await getUserByIdFromMeasurements(userId)
-    console.log(request.body)
+    
     const {weight, onDate} = request.body
     const weightInt = parseFloat(weight)
     const dateData = new Date(parseInt(onDate) * 1000).toISOString()
@@ -42,11 +42,11 @@ router.route('/getUsersMeasurementInfo')
 router.route("/getUserActivityByDate/:dateParam")
 .get(auth, async(request, response)=>{
     const {dateParam} = request.params
-    console.log(request.params.dateParam)
+    
     const dateData = new Date(parseInt(dateParam) * 1000).toISOString()
-    console.log(dateData)
+    
     const result = await getUserActivityByDate(dateData)
-    console.log(result)
+    
     response.send(request.params.dateParam)
 })
 
